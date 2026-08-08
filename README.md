@@ -55,6 +55,44 @@ System     comportamento
 Engine     ordem e coordenação
 ```
 
+### A gramática dos nomes
+
+As operações do `ComponentManager` colocam primeiro o componente que será manipulado e depois a ação:
+
+```text
+transformAdd()
+transformSetPosition()
+transformRemove()
+
+velocityAdd()
+velocityRemove()
+
+colorAdd()
+colorSet()
+colorRemove()
+```
+
+Por isso, a API usa `velocityAdd()` em vez de `addVelocity()`. Ao digitar `componentManagers.velocity`, todas as operações relacionadas a Velocity aparecem agrupadas. Primeiro eu escolho a peça que quero manipular. Depois escolho o que desejo fazer com ela.
+
+Essa ordem também preserva um caminho natural caso a API seja organizada futuramente por componente:
+
+```text
+velocityAdd()          -> velocity.add()
+velocityRemove()       -> velocity.remove()
+transformSetPosition() -> transform.setPosition()
+```
+
+A implementação interna pode ser mais verbosa quando isso torna a decisão explícita. O objetivo não é produzir o menor nome possível, mas fazer o nome mostrar onde a operação pertence.
+
+Pelo mesmo motivo, existe `colorAdd()` e não `renderAdd()`. `ColorComponentStorage` guarda um dado: a cor CSS associada à entidade. Quem transforma esse dado em pixels é o `RenderSystem`. Chamar o componente de Render misturaria o dado armazenado com o comportamento que o consome:
+
+```text
+ColorComponentStorage   dado
+RenderSystem            comportamento
+```
+
+O jogo adiciona Color à entidade. A Engine renderiza as entidades que possuem a composição exigida. Essa distinção mantém a separação do ECS visível até nos nomes da API.
+
 Montar uma entidade significa declarar, em sequência, exatamente quais capacidades ela possui:
 
 ```js
@@ -77,7 +115,10 @@ engine.componentManagers.colorAdd(playerEntityId, '#06b6d4');
 
 Não existe uma classe `Player`. O nome e o significado pertencem ao jogo. A engine entrega transformação, velocidade, input, colisão e cor como peças independentes.
 
+
 ## Parte técnica
+
+Na medição atual, toda a engine possui 1.253 linhas de código efetivo, sem contar linhas vazias e comentários. O tamanho pequeno não é um objetivo isolado. Ele é consequência de oferecer poucas peças explícitas que podem ser combinadas para produzir comportamentos diferentes.
 
 Os Component Storages usam uma estrutura de arrays, também conhecida como SoA. Cada propriedade numérica ocupa seu próprio `TypedArray`, indexado diretamente pelo ID da entidade.
 
@@ -134,4 +175,4 @@ Depois, acesse `http://localhost:8000`.
 
 ## Autor
 
-Criado por [Matheus DAVeloso](https://github.com/MatheusDAVeloso).
+Criado por [MatheusDAVeloso](https://github.com/MatheusDAVeloso).
