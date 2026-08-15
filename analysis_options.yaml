@@ -1,0 +1,98 @@
+# This file configures the static analysis results for your project (errors,
+# warnings, and lints).
+#
+# This enables the 'recommended' set of lints from `package:lints`.
+# This set helps identify many issues that may lead to problems when running
+# or consuming Dart code, and enforces writing Dart using a single, idiomatic
+# style and format.
+#
+# If you want a smaller set of lints you can change this to specify
+# 'package:lints/core.yaml'. These are just the most critical lints
+# (the recommended set includes the core lints).
+# The core lints are also what is used by pub.dev for scoring packages.
+
+# Uncomment the following section to specify additional rules.
+
+# linter:
+#   rules:
+#     - camel_case_types
+
+# analyzer:
+#   exclude:
+#     - path/to/excluded/files/**
+
+# For more information about the core and recommended set of lints, see
+# https://dart.dev/go/core-lints
+
+# For additional information about configuring this file, see
+# https://dart.dev/guides/language/analysis-options
+
+include: package:lints/recommended.yaml
+
+formatter:
+  trailing_commas: preserve
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # ==================================================
+    #                     ATIVADAS
+    # ==================================================
+    # --------------------------------------------------
+    #               Deixa o código explítico
+    # --------------------------------------------------
+    always_declare_return_types: true
+
+    # Se precisar utilizar uma classe como "class example<T> {}", apenas utilize @optionalTypeArgs
+    # É incompatível com:
+    # avoid_types_on_closure_parameters
+    # omit_local_variable_types
+    # omit_obvious_local_variable_types
+    # omit_obvious_property_types 
+    always_specify_types: true
+
+    # É incompatível com:
+    # prefer_relative_imports
+    always_use_package_imports: true
+
+    annotate_overrides: true
+
+    # Experimental
+    annotate_redeclares: true
+
+
+
+    # ==================================================
+    #               NÃO FORAM LANÇADAS AINDA
+    # ==================================================
+    # async_return_with_no_await: true
+
+
+
+    # ==================================================
+    #                     DESATIVAS
+    # ==================================================
+    # --------------------------------------------------
+    #          É apenas questão de estilo/gosto
+    # --------------------------------------------------
+    # Pode conflitar com o dart formatter
+    always_put_control_body_on_new_line: false
+
+    always_put_required_named_parameters_first: false
+
+    # --------------------------------------------------
+    #             Deixa o código implícito
+    # --------------------------------------------------
+    avoid_annotating_with_dynamic: false
+
+
+
+    # ==================================================
+    #                     REMOVIDAS
+    # ==================================================
+    # always_require_non_null_named_parameters
