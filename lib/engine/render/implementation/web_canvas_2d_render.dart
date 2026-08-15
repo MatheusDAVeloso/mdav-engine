@@ -5,7 +5,7 @@ import 'package:mdav_engine/engine/math/math_constants.dart';
 import 'package:mdav_engine/engine/render/mdav_engine_render.dart';
 import 'package:web/web.dart' as web;
 
-class WebCanvas2dRender extends MdavEngineRender {
+class WebCanvas2dRender implements MdavEngineRender {
   const WebCanvas2dRender({required web.CanvasRenderingContext2D context}) : _context = context;
 
   final web.CanvasRenderingContext2D _context;

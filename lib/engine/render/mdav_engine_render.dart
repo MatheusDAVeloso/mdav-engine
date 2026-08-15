@@ -1,6 +1,6 @@
 import 'package:mdav_engine/engine/contract/rectangle_border.dart';
 
-abstract class MdavEngineRender {
+abstract interface class MdavEngineRender {
   const MdavEngineRender();
 
   void drawRectangle({
@@ -9,7 +9,7 @@ abstract class MdavEngineRender {
     required double width,
     required double height,
     String? fillColor,
-    RectangleBorder border,
+    RectangleBorder? border,
   });
 
   void drawCircle({
