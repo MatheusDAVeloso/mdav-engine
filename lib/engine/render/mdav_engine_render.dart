@@ -2,10 +2,6 @@ abstract class MdavEngineRender {
   const MdavEngineRender();
 
   void drawRectangle({
-    required String fillColor,
-  });
-
-  void drawRectangle({
     required String color,
     required double positionX,
     required double positionY,
