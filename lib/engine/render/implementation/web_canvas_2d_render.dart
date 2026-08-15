@@ -1,23 +1,38 @@
 import 'dart:js_interop';
 
+import 'package:mdav_engine/engine/contract/rectangle_border.dart';
 import 'package:mdav_engine/engine/math/math_constants.dart';
 import 'package:mdav_engine/engine/render/mdav_engine_render.dart';
 import 'package:web/web.dart' as web;
 
 class WebCanvas2dRender extends MdavEngineRender {
   const WebCanvas2dRender({required web.CanvasRenderingContext2D context}) : _context = context;
+
   final web.CanvasRenderingContext2D _context;
 
   @override
   void drawRectangle({
-    required String color,
     required double positionX,
     required double positionY,
     required double width,
     required double height,
+    String? fillColor,
+    RectangleBorder? border,
   }) {
-    _context.fillStyle = color.toJS;
-    _context.fillRect(positionX, positionY, width, height);
+    _context.rect(positionX, positionY, width, height);
+
+    if (fillColor != null) {
+      _context.fillStyle = fillColor.toJS;
+      _context.fill();
+    }
+
+    // Se "thickness" for repassado com o valor 0, sem a verificação "border.thickness > 0", aparece uma borda
+    // com o mesmo tamanho de 1 em "thickness", porém com a cor aparentando transparência.
+    if (border != null && border.thickness > 0) {
+      _context.lineWidth = border.thickness;
+      _context.strokeStyle = border.color.toJS;
+      _context.stroke();
+    }
   }
 
   @override
@@ -28,9 +43,16 @@ class WebCanvas2dRender extends MdavEngineRender {
     required double radius,
   }) {
     _context.beginPath();
-    // Para fazer um círculo completo, é necessário passar dois parâmetros ao "_context.arc()", o startAngle e endAngle
+
+    // Para fazer um círculo completo, é necessário passar dois parâmetros ao "_context.arc()":
     // "0" para startAngle e "2 * PI" para endAngle, sendo esses dois parâmetros em "radians"
-    _context.arc(centerX, centerY, radius, /* startAngle: */ 0, /* engAngle: */ 2 * MathConstants.pi);
+    _context.arc(
+      centerX,
+      centerY,
+      radius,
+      /* startAngle: */ 0,
+      /* engAngle: */ 2 * MathConstants.pi,
+    );
     _context.fillStyle = color.toJS;
     _context.fill();
   }

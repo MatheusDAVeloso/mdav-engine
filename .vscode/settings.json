@@ -1,0 +1,11 @@
+{
+  // Source - https://stackoverflow.com/a/62873926
+  // Posted by Niek, modified by community. See post 'Timeline' for change history
+  // Retrieved 2026-08-15, License - CC BY-SA 4.0
+  "dart.lineLength": 120,
+  "[dart]": {
+    "editor.rulers": [
+      120
+    ],
+  }
+}
