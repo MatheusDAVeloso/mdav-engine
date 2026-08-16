@@ -1,4 +1,4 @@
-import 'package:mdav_engine/engine/contract/rectangle_border.dart';
+import 'package:mdav_engine/engine/contract/border.dart';
 import 'package:mdav_engine/engine/mdav_engine.dart';
 import 'package:web/web.dart' as web;
 
@@ -11,20 +11,14 @@ void main() {
   final MdavEngine engine = MdavEngine.withWebCanvas2dRendering(context: context);
 
   // teste
-
-  engine.render.defineRectangle(
-    xPositionInPixels: 100,
-    yPositionInPixels: 100,
-    widthInPixels: 100,
-    heightInPixels: 100,
+  engine.render.defineCircle(
+    centerX: 100.0,
+    centerY: 100.0,
+    radius: 50.0,
     fillColor: "blue",
-  );
-
-  engine.render.defineRectangle(
-    xPositionInPixels: 300,
-    yPositionInPixels: 100,
-    widthInPixels: 100,
-    heightInPixels: 100,
-    fillColor: "green",
+    border: Border(
+      color: "red",
+      thicknessInPixels: 4,
+    ),
   );
 }

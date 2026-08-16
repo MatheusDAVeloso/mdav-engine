@@ -1,6 +1,6 @@
 import 'dart:js_interop';
 
-import 'package:mdav_engine/engine/contract/rectangle_border.dart';
+import 'package:mdav_engine/engine/contract/border.dart';
 import 'package:mdav_engine/engine/math/math.dart';
 import 'package:mdav_engine/engine/render/mdav_engine_render.dart';
 import 'package:web/web.dart' as web;
@@ -17,7 +17,7 @@ class WebCanvas2dRender implements MdavEngineRender {
     required int widthInPixels,
     required int heightInPixels,
     String? fillColor,
-    RectangleBorder? border,
+    Border? border,
   }) {
     double? xPositionFixed;
     double? yPositionFixed;
@@ -61,11 +61,12 @@ class WebCanvas2dRender implements MdavEngineRender {
   }
 
   @override
-  void drawCircle({
-    required String color,
+  void defineCircle({
     required double centerX,
     required double centerY,
     required double radius,
+    String? fillColor,
+    Border? border,
   }) {
     _context.beginPath();
     // TODO: Identificar qual é a posição inicial para adicionar um "moveTo" aqui
@@ -80,8 +81,18 @@ class WebCanvas2dRender implements MdavEngineRender {
       /* engAngle: */ 2 * Math.pi,
     );
 
-    _context.fillStyle = color.toJS;
-    _context.fill();
+    // Se "thickness" for repassado com o valor 0, ainda sim aparece uma borda com espessura — equivalente a passar
+    // o valor 1 em "thickness". Por isso a proteção "border.thickness > 0"
+    if (border != null && border.thicknessInPixels > 0) {
+      _context.lineWidth = border.thicknessInPixels;
+      _context.strokeStyle = border.color.toJS;
+      _context.stroke();
+    }
+
+    if (fillColor != null) {
+      _context.fillStyle = fillColor.toJS;
+      _context.fill();
+    }
   }
 
   @override

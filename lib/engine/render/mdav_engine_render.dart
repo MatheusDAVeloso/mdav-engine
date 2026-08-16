@@ -1,4 +1,4 @@
-import 'package:mdav_engine/engine/contract/rectangle_border.dart';
+import 'package:mdav_engine/engine/contract/border.dart';
 
 abstract interface class MdavEngineRender {
   const MdavEngineRender();
@@ -10,14 +10,16 @@ abstract interface class MdavEngineRender {
     required int heightInPixels,
     String? fillColor,
     // TODO: Talvez diferenciar RectangleBorderToInside de RectangleBorderToOutside, os dois no mesmo parâmetro
-    RectangleBorder? border,
+    Border? border,
   });
 
-  void drawCircle({
-    required String color,
+  void defineCircle({
     required double centerX,
     required double centerY,
     required double radius,
+    String? fillColor,
+    // TODO: Talvez diferenciar RectangleBorderToInside de RectangleBorderToOutside, os dois no mesmo parâmetro
+    Border? border,
   });
 
   void clearAllDraw();
