@@ -10,15 +10,28 @@ void main() {
   final web.CanvasRenderingContext2D context = canvas.getContext("2d") as web.CanvasRenderingContext2D;
   final MdavEngine engine = MdavEngine.withWebCanvas2dRendering(context: context);
 
-  engine.render.drawRectangle(
-    positionX: 100.0,
-    positionY: 100.0,
-    width: 100.0,
-    height: 100.0,
+  // Teste
+  // Retangulo A
+  engine.render.defineRectangle(
+    xPositionInPixels: 100,
+    yPositionInPixels: 100,
+    widthInPixels: 100,
+    heightInPixels: 100,
     fillColor: "blue",
     border: RectangleBorder(
       color: "red",
-      thickness: 2.0,
+      thicknessInPixels: 4,
     ),
   );
+
+  /*
+  // Retângulo B
+  engine.render.defineRectangle(
+    positionX: 200.0,
+    positionY: 200.0,
+    width: 100.0,
+    height: 100.0,
+    fillColor: "green",
+  );
+  */
 }

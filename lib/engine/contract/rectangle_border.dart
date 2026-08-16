@@ -1,5 +1,5 @@
 class RectangleBorder {
-  const RectangleBorder({required this.color, required this.thickness});
+  const RectangleBorder({required this.color, required this.thicknessInPixels});
   final String color;
-  final double thickness;
+  final int thicknessInPixels;
 }

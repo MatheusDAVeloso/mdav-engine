@@ -3,12 +3,13 @@ import 'package:mdav_engine/engine/contract/rectangle_border.dart';
 abstract interface class MdavEngineRender {
   const MdavEngineRender();
 
-  void drawRectangle({
-    required double positionX,
-    required double positionY,
-    required double width,
-    required double height,
+  void defineRectangle({
+    required int xPositionInPixels,
+    required int yPositionInPixels,
+    required int widthInPixels,
+    required int heightInPixels,
     String? fillColor,
+    // TODO: Talvez diferenciar RectangleBorderToInside de RectangleBorderToOutside, os dois no mesmo parâmetro
     RectangleBorder? border,
   });
 

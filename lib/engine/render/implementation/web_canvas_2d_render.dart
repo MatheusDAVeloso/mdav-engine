@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:mdav_engine/engine/contract/rectangle_border.dart';
-import 'package:mdav_engine/engine/math/math_constants.dart';
+import 'package:mdav_engine/engine/math/math.dart';
 import 'package:mdav_engine/engine/render/mdav_engine_render.dart';
 import 'package:web/web.dart' as web;
 
@@ -11,27 +11,46 @@ class WebCanvas2dRender implements MdavEngineRender {
   final web.CanvasRenderingContext2D _context;
 
   @override
-  void drawRectangle({
-    required double positionX,
-    required double positionY,
-    required double width,
-    required double height,
+  void defineRectangle({
+    required int xPositionInPixels,
+    required int yPositionInPixels,
+    required int widthInPixels,
+    required int heightInPixels,
     String? fillColor,
     RectangleBorder? border,
   }) {
-    _context.rect(positionX, positionY, width, height);
+    double? xPositionFixed;
+    double? yPositionFixed;
 
+    // CASO ESPECIAL — BORDA
+    // Se "thickness" for repassado com o valor 0, ainda sim aparece uma borda com espessura — equivalente a passar
+    // o valor 1 em "thickness" — além de um blur. Por isso a proteção "border.thickness > 0"
+    if (border != null && border.thicknessInPixels > 0 && Math.isOdd(number: border.thicknessInPixels)) {
+      // correção de posição
+      // TODO: Adicionar parâmetro para o dev escolher a direção de correção em X e Y
+      xPositionFixed = xPositionInPixels.toDouble() + 0.5;
+      yPositionFixed = yPositionInPixels.toDouble() + 0.5;
+    }
+
+    // Delimitação
+    _context.rect(
+      xPositionFixed ?? xPositionInPixels,
+      yPositionFixed ?? yPositionInPixels,
+      widthInPixels,
+      heightInPixels,
+    );
+
+    // Pintura da borda
+    if (border != null && border.thicknessInPixels > 0) {
+      _context.lineWidth = border.thicknessInPixels;
+      _context.strokeStyle = border.color.toJS;
+      _context.stroke();
+    }
+
+    // Pintura interna
     if (fillColor != null) {
       _context.fillStyle = fillColor.toJS;
       _context.fill();
-    }
-
-    // Se "thickness" for repassado com o valor 0, sem a verificação "border.thickness > 0", aparece uma borda
-    // com o mesmo tamanho de 1 em "thickness", porém com a cor aparentando transparência.
-    if (border != null && border.thickness > 0) {
-      _context.lineWidth = border.thickness;
-      _context.strokeStyle = border.color.toJS;
-      _context.stroke();
     }
   }
 
@@ -51,7 +70,7 @@ class WebCanvas2dRender implements MdavEngineRender {
       centerY,
       radius,
       /* startAngle: */ 0,
-      /* engAngle: */ 2 * MathConstants.pi,
+      /* engAngle: */ 2 * Math.pi,
     );
     _context.fillStyle = color.toJS;
     _context.fill();
