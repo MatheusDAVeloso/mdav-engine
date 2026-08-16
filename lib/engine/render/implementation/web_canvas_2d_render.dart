@@ -33,6 +33,12 @@ class WebCanvas2dRender implements MdavEngineRender {
     }
 
     // Delimitação
+    _context.beginPath();
+    // Sempre quando o caminho atual está vazio — seja após chamar "beginPath()" ou inicializar um novo canvas,
+    // o primeiro comando de construção de caminho é sempre tratado como "moveTo", independente do que seja.
+    // Por essa rasão, é sempre bom ser explícito sobre a posição inicial.
+    // fonte: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+    _context.moveTo(xPositionFixed ?? xPositionInPixels, yPositionFixed ?? yPositionInPixels);
     _context.rect(
       xPositionFixed ?? xPositionInPixels,
       yPositionFixed ?? yPositionInPixels,
@@ -62,6 +68,7 @@ class WebCanvas2dRender implements MdavEngineRender {
     required double radius,
   }) {
     _context.beginPath();
+    // TODO: Identificar qual é a posição inicial para adicionar um "moveTo" aqui
 
     // Para fazer um círculo completo, é necessário passar dois parâmetros ao "_context.arc()":
     // "0" para startAngle e "2 * PI" para endAngle, sendo esses dois parâmetros em "radians"
@@ -72,6 +79,7 @@ class WebCanvas2dRender implements MdavEngineRender {
       /* startAngle: */ 0,
       /* engAngle: */ 2 * Math.pi,
     );
+
     _context.fillStyle = color.toJS;
     _context.fill();
   }
