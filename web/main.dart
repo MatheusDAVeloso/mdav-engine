@@ -18,7 +18,7 @@ void main() {
     fillColor: "blue",
     border: Border(
       color: "red",
-      thicknessInPixels: 4,
+      thicknessInPixels: 3,
     ),
   );
 }
