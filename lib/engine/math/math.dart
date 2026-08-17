@@ -4,11 +4,11 @@ class Math {
 
   // Par
   static bool isEven({required int number}) {
-    return number % 2 == 0 ? true : false;
+    return number % 2 == 0;
   }
 
   // Impar
   static bool isOdd({required int number}) {
-    return number % 2 == 0 ? false : true;
+    return number % 2 != 0;
   }
 }

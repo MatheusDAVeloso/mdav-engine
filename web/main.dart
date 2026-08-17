@@ -1,4 +1,3 @@
-import 'package:mdav_engine/engine/contract/border.dart';
 import 'package:mdav_engine/engine/mdav_engine.dart';
 import 'package:web/web.dart' as web;
 
