@@ -40,6 +40,8 @@ analyzer:
 
 linter:
   rules:
+    # escolhidas: 20
+
     # ==================================================
     #                     ATIVADAS
     # ==================================================
@@ -47,6 +49,8 @@ linter:
     #               Deixa o código explítico
     # --------------------------------------------------
     always_declare_return_types: true
+    annotate_overrides: true
+    avoid_dynamic_calls: true
 
     # Se precisar utilizar uma classe como "class example<T> {}", apenas utilize @optionalTypeArgs
     # É incompatível com:
@@ -60,10 +64,28 @@ linter:
     # prefer_relative_imports
     always_use_package_imports: true
 
-    annotate_overrides: true
-
     # Experimental
     annotate_redeclares: true
+
+    # --------------------------------------------------
+    #           Remove variáveis desnecessárias
+    # --------------------------------------------------
+    avoid_bool_literals_in_conditional_expressions: true
+
+    # --------------------------------------------------
+    #              Evita erros silenciosos
+    # --------------------------------------------------
+    avoid_catches_without_on_clauses: true
+    avoid_catching_errors: true
+    avoid_equals_and_hash_code_on_mutable_classes: true
+
+    # Essencial ao compilar para JS, fonte: https://dart.dev/tools/linter-rules/avoid_double_and_int_checks
+    avoid_double_and_int_checks: true
+
+    # --------------------------------------------------
+    #              Deixa o código melhor
+    # --------------------------------------------------
+    avoid_empty_else: true
 
 
 
@@ -80,10 +102,14 @@ linter:
     # --------------------------------------------------
     #          É apenas questão de estilo/gosto
     # --------------------------------------------------
+    always_put_required_named_parameters_first: false
+    avoid_escaping_inner_quotes: false
+
     # Pode conflitar com o dart formatter
     always_put_control_body_on_new_line: false
-
-    always_put_required_named_parameters_first: false
+    
+    # Segundo Dart, é para isso que eles permitem funções fora de classes, mas como utilizo facade patterns, isso vai contra minha filosofia
+    avoid_classes_with_only_static_members: false
 
     # --------------------------------------------------
     #             Deixa o código implícito
@@ -96,3 +122,4 @@ linter:
     #                     REMOVIDAS
     # ==================================================
     # always_require_non_null_named_parameters
+    # avoid_as

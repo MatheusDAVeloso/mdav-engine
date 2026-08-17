@@ -22,5 +22,14 @@ abstract interface class MdavEngineRender {
     Border? border,
   });
 
+  // TODO: Deixar passar a fonte para o texto
+  void drawText({
+    required int xPositionInPixels,
+    required int yPositionInPixels,
+    required int sizeInPixels,
+    required String color,
+    required String text,
+  });
+
   void clearAllDraw();
 }

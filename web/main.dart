@@ -11,14 +11,11 @@ void main() {
   final MdavEngine engine = MdavEngine.withWebCanvas2dRendering(context: context);
 
   // teste
-  engine.render.defineCircle(
-    centerX: 100.0,
-    centerY: 100.0,
-    radius: 50.0,
-    fillColor: "blue",
-    border: Border(
-      color: "red",
-      thicknessInPixels: 3,
-    ),
+  engine.render.drawText(
+    xPositionInPixels: 100,
+    yPositionInPixels: 100,
+    sizeInPixels: 24,
+    color: "blue",
+    text: "MDAV Engine",
   );
 }

@@ -96,6 +96,20 @@ class WebCanvas2dRender implements MdavEngineRender {
   }
 
   @override
+  void drawText({
+    required int xPositionInPixels,
+    required int yPositionInPixels,
+    required int sizeInPixels,
+    required String color,
+    required String text,
+  }) {
+    // TODO: Deixar passar a fonte para o texto
+    _context.font = "${sizeInPixels}px serif";
+    _context.fillStyle = color.toJS;
+    _context.fillText(text, xPositionInPixels, yPositionInPixels);
+  }
+
+  @override
   void clearAllDraw() {
     /// Segundo o link "https://stackoverflow.com/questions/2142535/how-to-clear-the-canvas-for-redrawing",
     /// esta é forma mais perfomática de limpar o desenho, além de não resetar "fillStroke" e "fillStyle"
