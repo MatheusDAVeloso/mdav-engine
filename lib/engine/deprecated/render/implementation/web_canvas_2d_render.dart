@@ -1,8 +1,8 @@
 import 'dart:js_interop';
 
-import 'package:mdav_engine/engine/contract/border.dart';
-import 'package:mdav_engine/engine/math/math.dart';
-import 'package:mdav_engine/engine/render/mdav_engine_render.dart';
+import 'package:mdav_engine/engine/deprecated/contract/border.dart';
+import 'package:mdav_engine/engine/deprecated/math/math.dart';
+import 'package:mdav_engine/engine/deprecated/render/mdav_engine_render.dart';
 import 'package:web/web.dart' as web;
 
 class WebCanvas2dRender implements MdavEngineRender {

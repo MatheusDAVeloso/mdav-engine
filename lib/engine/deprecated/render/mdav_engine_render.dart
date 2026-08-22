@@ -1,4 +1,4 @@
-import 'package:mdav_engine/engine/contract/border.dart';
+import 'package:mdav_engine/engine/deprecated/contract/border.dart';
 
 abstract interface class MdavEngineRender {
   const MdavEngineRender();
